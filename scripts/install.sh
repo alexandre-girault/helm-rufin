@@ -12,6 +12,7 @@ esac
 
 case $ARCH in
     aarch64) ARCH="arm64" ;;
+    x86_64) ARCH="amd64" ;;
 esac
 
 LATEST_VERSION=$(curl -s https://api.github.com/repos/alexandre-girault/helm-rufin/releases/latest |tr ',' '\n'|grep '"name":' |cut -d'"' -f4 |head -1)
