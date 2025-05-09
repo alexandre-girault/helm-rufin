@@ -16,7 +16,7 @@ esac
 
 LATEST_VERSION=$(curl -s https://api.github.com/repos/alexandre-girault/helm-rufin/releases/latest |tr ',' '\n'|grep '"name":' |cut -d'"' -f4 |head -1)
 ARCHIVE="rufin_${LATEST_VERSION}_${OS}_${ARCH}"
-URL="https://github.com/alexandre-girault/helm-rufin/releases/download/${LATEST_VERSION}/rufin-darwin-${LATEST_VERSION}-${ARCH}"
+URL="https://github.com/alexandre-girault/helm-rufin/releases/download/${LATEST_VERSION}/rufin-${OS}-${LATEST_VERSION}-${ARCH}"
 
 mkdir -p "$HELM_PLUGIN_DIR/bin"
 chmod 755 "$HELM_PLUGIN_DIR/bin"
