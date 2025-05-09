@@ -7,5 +7,11 @@ platformCommand:
   - os: linux
     arch: amd64
     command: "${HELM_PLUGIN_DIR}/bin/run.sh"
+  - os: linux
+    arch: arm64
+    command: "${HELM_PLUGIN_DIR}/bin/run.sh"
+  - os: darwin
+    arch: arm64
+    command: "${HELM_PLUGIN_DIR}/bin/run.sh"
 hooks:
   install: "cd $HELM_PLUGIN_DIR && chmod +x scripts/install.sh && scripts/install.sh"
