@@ -1,0 +1,11 @@
+name: rufin
+version: 0.0.1
+usage: helm rufin [flags]
+description: get secrets fro a remote source
+ignoreFlags: false
+platformCommand:
+  - os: linux
+    arch: amd64
+    command: "${HELM_PLUGIN_DIR}/bin/run.sh"
+hooks:
+  install: "cd $HELM_PLUGIN_DIR && chmod +x scripts/install.sh && scripts/install.sh"
