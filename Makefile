@@ -9,28 +9,25 @@ all: build
 .PHONY: build
 
 bin/rufin-linux-amd64:
-	mkdir -p bin dist
+	mkdir -p bin
 	cd src && $(CGO_ARGS) GOOS=linux GOARCH=amd64 go build \
 	-ldflags=$(LD_FLAGS) \
 	-o ../bin/rufin-linux-$(APP_VERSION)-amd64 \
 	*.go
-	tar -czf dist/rufin-linux-$(APP_VERSION)-amd64.tar.gz bin/rufin-linux-$(APP_VERSION)-amd64
 
 bin/rufin-linux-arm64:
-	mkdir -p bin dist
+	mkdir -p bin
 	cd src && $(CGO_ARGS) GOOS=linux GOARCH=arm64 go build \
 	-ldflags=$(LD_FLAGS) \
 	-o ../bin/rufin-linux-$(APP_VERSION)-arm64 \
 	*.go
-	tar -czf dist/rufin-linux-$(APP_VERSION)-arm64.tar.gz bin/rufin-linux-$(APP_VERSION)-arm64
 
 bin/rufin-darwin-arm64:
-	mkdir -p bin dist
+	mkdir -p bin
 	cd src && $(CGO_ARGS) GOOS=darwin GOARCH=arm64 go build \
 	-ldflags=$(LD_FLAGS) \
 	-o ../bin/rufin-darwin-$(APP_VERSION)-arm64 \
 	*.go
-	tar -czf dist/rufin-darwin-$(APP_VERSION)-arm64.tar.gz bin/rufin-darwin-$(APP_VERSION)-arm64
 
 build: clean bin/rufin-linux-amd64 bin/rufin-linux-arm64 bin/rufin-darwin-arm64
 	@echo build version $(APP_VERSION)
@@ -49,5 +46,4 @@ clean:
 .PHONY: release
 release:
 	@echo "Creating release for version $(APP_VERSION)"
-	glab release create -n "$(APP_VERSION)" -N "" "$(APP_VERSION)"
-	glab release upload $(APP_VERSION) ./dist/*.tar.gz
+	gh release create $(APP_VERSION) --generate-notes ./bin/rufin-*
