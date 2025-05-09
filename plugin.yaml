@@ -1,7 +1,7 @@
 name: rufin
 version: 0.0.1
 usage: helm rufin [flags]
-description: get secrets fro a remote source
+description: get secrets from aws secretsmanager
 ignoreFlags: false
 platformCommand:
   - os: linux
