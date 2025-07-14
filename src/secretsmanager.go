@@ -13,7 +13,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-func getSecretsmanagerSecret(secretArn string) string {
+type secretBackendClient func(cfg aws.Config, optFns ...func(*secretsmanager.Options)) *secretsmanager.Client
+
+func getSecretsmanagerSecret(secretArn string, backend secretBackendClient) string {
 
 	// get the secret region and key in ARN
 	// AWS secrets manager ARN format is :
@@ -35,7 +37,8 @@ func getSecretsmanagerSecret(secretArn string) string {
 	}
 
 	// Create Secrets Manager client
-	awsClient := secretsmanager.NewFromConfig(config)
+	//awsClient := secretsmanager.NewFromConfig(config)
+	awsClient := backend(config)
 
 	input := &secretsmanager.GetSecretValueInput{
 		SecretId:     aws.String(secretArnWithoutKey), // Use the ARN without the key part

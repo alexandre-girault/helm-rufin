@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
 func containsSecrets(yamlFileName string) bool {
@@ -43,7 +45,7 @@ func replaceSecrets(yamlFileName string) string {
 		if len(match) > 0 {
 
 			fmt.Fprintln(os.Stdout, "replacing secret : ", match[1])
-			secretValue := "'" + getSecretsmanagerSecret(match[1]) + "'"
+			secretValue := "'" + getSecretsmanagerSecret(match[1], secretsmanager.NewFromConfig) + "'"
 
 			linesWithSecrets = append(linesWithSecrets, strings.Split(fileScanner.Text(), "@")[0]+secretValue)
 
