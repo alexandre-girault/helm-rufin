@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
+
+type secretRetriever func(string) string
 
 func containsSecrets(yamlFileName string) bool {
 
@@ -28,7 +28,7 @@ func containsSecrets(yamlFileName string) bool {
 // read a YAML file, replaces any secrets found with their values from AWS Secrets Manager,
 // writes the modified content to a new file prefixed with "with-secrets-".
 // returns the name of the new file.
-func replaceSecrets(yamlFileName string) string {
+func replaceSecrets(yamlFileName string, getSecret secretRetriever) string {
 
 	var linesWithSecrets []string
 
@@ -45,7 +45,8 @@ func replaceSecrets(yamlFileName string) string {
 		if len(match) > 0 {
 
 			fmt.Fprintln(os.Stdout, "replacing secret : ", match[1])
-			secretValue := "'" + getSecretsmanagerSecret(match[1], secretsmanager.NewFromConfig) + "'"
+			//secretValue := "'" + getSecretsmanagerSecret(match[1]) + "'"
+			secretValue := "'" + getSecret(match[1]) + "'"
 
 			linesWithSecrets = append(linesWithSecrets, strings.Split(fileScanner.Text(), "@")[0]+secretValue)
 
@@ -70,7 +71,10 @@ func writeFileWithSecrets(valueFileName string, lines []string) string {
 
 	writer := bufio.NewWriter(file)
 	for _, line := range lines {
-		writer.WriteString(line + "\n")
+		_, err := writer.WriteString(line + "\n")
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
 	}
 	writer.Flush()
 

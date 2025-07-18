@@ -7,7 +7,7 @@ deploy helm charts with secrets from aws secrets manager
 helm plugin install https://github.com/alexandre-girault/helm-rufin.git
 ```
 
-### Usage
+## Usage
 
 Put arn instead of secrets values in helm value files :
 
@@ -38,4 +38,32 @@ test2:
 ```
 
 The helm command automatically use the value file created with the plugin.
+
+## Development
+
+### Run locally with test data
+
+```sh
+cd src
+go run *.go ../testdata/secrets.yaml
+
+̀̀```
+
+### Build
+
+#### Delete binaries
+
+```sh
+make clean
+```
+
+#### Build binaries for each OS / architecture
+
+```sh
+make build
+```
+
+
+
+
 

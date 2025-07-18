@@ -32,11 +32,11 @@ bin/rufin-darwin-arm64:
 build: clean bin/rufin-linux-amd64 bin/rufin-linux-arm64 bin/rufin-darwin-arm64
 	@echo build version $(APP_VERSION)
 
-#test:
-#	CC_loglevel="error" go test -v ./... -cover
+test:
+	cd src && go test
 
 lint:
-	docker run --rm -v $$(pwd):/app -w /app golangci/golangci-lint:v1.62.2 golangci-lint run -v
+	docker run --rm -v $$(pwd)/src/:/app -w /app golangci/golangci-lint:v1.62.2 golangci-lint run -v
 	
 
 .PHONY: clean

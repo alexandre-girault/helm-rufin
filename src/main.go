@@ -18,7 +18,7 @@ func main() {
 			if containsSecrets(arg) {
 
 				// helm command will be run with the new file containing secrets
-				HelmArgs = append(HelmArgs, replaceSecrets(arg))
+				HelmArgs = append(HelmArgs, replaceSecrets(arg, getSecretsmanagerSecret))
 			} else {
 				HelmArgs = append(HelmArgs, arg)
 			}
