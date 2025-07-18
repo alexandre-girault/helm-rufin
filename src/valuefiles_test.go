@@ -13,8 +13,8 @@ func TestContainsSecrets(t *testing.T) {
 		fileName string
 		expected bool
 	}{
-		{"../testdata/secrets.yaml", true},
-		{"../testdata/nosecrets.yaml", false},
+		{"../testdata/mock_secrets.yaml", true},
+		{"../testdata/mock_nosecrets.yaml", false},
 	}
 
 	for _, test := range tests {
@@ -30,8 +30,8 @@ func TestOutputfileName(t *testing.T) {
 		fileName               string
 		expectedOutputFilename string
 	}{
-		{"../testdata/secrets.yaml", "../testdata/with-secrets-secrets.yaml"},
-		{"../testdata/nosecrets.yaml", "../testdata/with-secrets-nosecrets.yaml"},
+		{"../testdata/mock_secrets.yaml", "../testdata/with-secrets-mock_secrets.yaml"},
+		{"../testdata/mock_nosecrets.yaml", "../testdata/with-secrets-mock_nosecrets.yaml"},
 	}
 
 	for _, test := range tests {

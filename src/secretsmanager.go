@@ -47,8 +47,7 @@ func getSecretsmanagerSecret(secretArn string) string {
 	}
 
 	// Create Secrets Manager client
-	//awsClient := secretsmanager.NewFromConfig(config)
-	awsClient := backend(config)
+	awsClient := secretsmanager.NewFromConfig(config)
 
 	input := &secretsmanager.GetSecretValueInput{
 		SecretId:     aws.String(s.SecretArnWithoutKey), // Use the ARN without the key part
