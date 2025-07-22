@@ -18,10 +18,10 @@ func containsSecrets(yamlFileName string) bool {
 	}
 
 	if strings.Contains(string(yamlContent), secretPrefix) {
-		fmt.Println("Secrets found in file: ", yamlFileName)
+		fmt.Fprintln(os.Stderr, "Secrets found in file: "+yamlFileName)
 		return true
 	}
-	fmt.Println("No secrets found in file: ", yamlFileName)
+	fmt.Fprintln(os.Stderr, "No secrets found in file: "+yamlFileName)
 	return false
 }
 
@@ -43,8 +43,7 @@ func replaceSecrets(yamlFileName string, getSecret secretRetriever) string {
 	for fileScanner.Scan() {
 		match := secretsmanagerPattern.FindStringSubmatch(fileScanner.Text())
 		if len(match) > 0 {
-
-			fmt.Fprintln(os.Stdout, "replacing secret : ", match[1])
+			fmt.Fprintln(os.Stderr, "replacing secret : ", match[1])
 			//secretValue := "'" + getSecretsmanagerSecret(match[1]) + "'"
 			secretValue := "'" + getSecret(match[1]) + "'"
 

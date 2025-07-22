@@ -37,7 +37,6 @@ test:
 
 lint:
 	docker run --rm -v $$(pwd)/src/:/app -w /app golangci/golangci-lint:v1.62.2 golangci-lint run -v
-	
 
 .PHONY: clean
 clean:
@@ -46,4 +45,5 @@ clean:
 .PHONY: release
 release:
 	@echo "Creating release for version $(APP_VERSION)"
+	git push origin tag $(APP_VERSION)
 	gh release create $(APP_VERSION) --generate-notes ./bin/rufin-*

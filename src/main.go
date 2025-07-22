@@ -22,9 +22,11 @@ func main() {
 			} else {
 				HelmArgs = append(HelmArgs, arg)
 			}
+
+		}else {
+				HelmArgs = append(HelmArgs, arg)
 		}
-
-		fmt.Println(strings.Join(HelmArgs, " "))
-
 	}
+
+	fmt.Println(strings.Join(HelmArgs, " "))
 }

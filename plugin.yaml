@@ -1,5 +1,5 @@
 name: rufin
-version: 0.0.1
+version: 0.0.2
 usage: helm rufin [flags]
 description: get secrets from aws secretsmanager
 ignoreFlags: false
